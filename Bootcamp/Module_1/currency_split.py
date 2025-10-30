@@ -13,4 +13,4 @@ amount = amount % 10
 ones = amount
 
 # Print the result
-print(hundreds, fifties, tens, ones)
+print(hundreds, fifties, tens, ones) 
