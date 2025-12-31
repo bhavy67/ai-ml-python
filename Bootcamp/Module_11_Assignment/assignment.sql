@@ -12,7 +12,7 @@ use ndap;
 -- TYPE YOUR CODE BELOW >
 -- <write your answers in the empty spaces given, the length of solution queries (and the solution writing space) can vary>
 SELECT DISTINCT srcStateName
-FROM ndap_data;
+FROM FarmersInsuranceData;
 
 
 ###
@@ -27,7 +27,7 @@ SELECT
     srcStateName,
     SUM(TotalFarmersCovered) AS TotalFarmersCovered,
     SUM(SumInsured) AS SumInsured
-FROM ndap_data
+FROM FarmersInsuranceData
 GROUP BY srcStateName
 ORDER BY TotalFarmersCovered DESC;
 
@@ -44,7 +44,7 @@ ORDER BY TotalFarmersCovered DESC;
 -- ###
 -- TYPE YOUR CODE BELOW >
 SELECT *
-FROM ndap_data
+FROM FarmersInsuranceData
 WHERE Year = 2020;
 
 
@@ -56,7 +56,7 @@ WHERE Year = 2020;
 -- ###
 -- TYPE YOUR CODE BELOW >
 SELECT *
-FROM ndap_data
+FROM FarmersInsuranceData
 WHERE TotalPopulationRural > 1000000
   AND srcStateName = 'HIMACHAL PRADESH';
 
@@ -72,7 +72,7 @@ SELECT
     srcStateName,
     srcDistrictName,
     SUM(FarmersPremiumAmount) AS FarmersPremiumAmount
-FROM ndap_data
+FROM FarmersInsuranceData
 WHERE Year = 2018
 GROUP BY srcStateName, srcDistrictName
 ORDER BY FarmersPremiumAmount ASC;
@@ -90,7 +90,7 @@ SELECT
     srcStateName,
     SUM(TotalFarmersCovered) AS TotalFarmersCovered,
     SUM(GrossPremiumAmountToBePaid) AS GrossPremiumAmountToBePaid
-FROM ndap_data
+FROM FarmersInsuranceData
 WHERE InsuredLandArea > 5.0
   AND Year = 2018
 GROUP BY srcStateName;
@@ -110,7 +110,7 @@ GROUP BY srcStateName;
 SELECT
     srcYear,
     AVG(InsuredLandArea) AS AvgInsuredLandArea
-FROM ndap_data
+FROM FarmersInsuranceData
 GROUP BY srcYear;
 
 
@@ -124,7 +124,7 @@ GROUP BY srcYear;
 SELECT
     srcDistrictName,
     SUM(TotalFarmersCovered) AS TotalFarmersCovered
-FROM ndap_data
+FROM FarmersInsuranceData
 WHERE InsuranceUnits > 0
 GROUP BY srcDistrictName;
 
@@ -143,7 +143,7 @@ SELECT
     SUM(StatePremiumAmount) AS StatePremiumAmount,
     SUM(GOVPremiumAmount) AS GOVPremiumAmount,
     SUM(TotalFarmersCovered) AS TotalFarmersCovered
-FROM ndap_data
+FROM FarmersInsuranceData
 WHERE SumInsured > 500000
 GROUP BY srcStateName;
 
@@ -163,7 +163,7 @@ GROUP BY srcStateName;
 SELECT
     srcDistrictName,
     TotalPopulation
-FROM ndap_data
+FROM FarmersInsuranceData
 WHERE Year = 2020
 ORDER BY TotalPopulation DESC
 LIMIT 5;
@@ -182,7 +182,7 @@ SELECT
     srcDistrictName,
     SumInsured,
     FarmersPremiumAmount
-FROM ndap_data
+FROM FarmersInsuranceData
 WHERE FarmersPremiumAmount > 0
 ORDER BY SumInsured ASC, FarmersPremiumAmount ASC
 LIMIT 10;
@@ -200,7 +200,7 @@ SELECT
     srcStateName,
     srcYear,
     (SUM(TotalFarmersCovered) / SUM(TotalPopulation)) AS insured_ratio
-FROM ndap_data
+FROM FarmersInsuranceData
 GROUP BY srcStateName, srcYear
 ORDER BY insured_ratio DESC
 LIMIT 3;
@@ -221,7 +221,7 @@ LIMIT 3;
 SELECT DISTINCT
     srcStateName,
     LEFT(srcStateName, 3) AS StateShortName
-FROM ndap_data;
+FROM FarmersInsuranceData;
 
 
 -- ###
@@ -232,7 +232,7 @@ FROM ndap_data;
 -- ###
 -- TYPE YOUR CODE BELOW >
 SELECT DISTINCT srcDistrictName
-FROM ndap_data
+FROM FarmersInsuranceData
 WHERE srcDistrictName LIKE 'B%';
 
 
@@ -246,7 +246,7 @@ WHERE srcDistrictName LIKE 'B%';
 SELECT
     srcStateName,
     srcDistrictName
-FROM ndap_data
+FROM FarmersInsuranceData
 WHERE srcDistrictName LIKE '%pur';
 
 -- ###
@@ -265,8 +265,8 @@ SELECT
     a.srcStateName,
     a.srcDistrictName,
     SUM(a.FarmersPremiumAmount) AS FarmersPremiumAmount
-FROM ndap_data a
-INNER JOIN ndap_data b
+FROM FarmersInsuranceData a
+INNER JOIN FarmersInsuranceData b
     ON a.srcDistrictName = b.srcDistrictName
    AND a.srcYear = b.srcYear
 WHERE b.InsuranceUnits > 10
@@ -287,7 +287,7 @@ SELECT
     Year,
     TotalPopulation,
     MAX(FarmersPremiumAmount) AS MaxFarmersPremium
-FROM ndap_data
+FROM FarmersInsuranceData
 GROUP BY srcStateName, srcDistrictName, Year, TotalPopulation
 HAVING MaxFarmersPremium > 200000000;
 
@@ -306,8 +306,8 @@ SELECT
     d.srcDistrictName,
     SUM(d.FarmersPremiumAmount) AS TotalFarmersPremium,
     AVG(d.TotalPopulation) AS AvgPopulation
-FROM ndap_data d
-LEFT JOIN ndap_data p
+FROM FarmersInsuranceData d
+LEFT JOIN FarmersInsuranceData p
     ON d.srcDistrictName = p.srcDistrictName
 GROUP BY d.srcStateName, d.srcDistrictName
 HAVING TotalFarmersPremium > 100000000
@@ -328,9 +328,9 @@ ORDER BY TotalFarmersPremium DESC;
 -- ###
 -- TYPE YOUR CODE BELOW >
 SELECT DISTINCT srcDistrictName
-FROM ndap_data
+FROM FarmersInsuranceData
 WHERE TotalFarmersCovered >
-      (SELECT AVG(TotalFarmersCovered) FROM ndap_data);
+      (SELECT AVG(TotalFarmersCovered) FROM FarmersInsuranceData);
 
 
 
@@ -343,12 +343,12 @@ WHERE TotalFarmersCovered >
 -- ###
 -- TYPE YOUR CODE BELOW >
 SELECT DISTINCT srcStateName
-FROM ndap_data
+FROM FarmersInsuranceData
 WHERE SumInsured >
       (SELECT MAX(SumInsured)
-       FROM ndap_data
+       FROM FarmersInsuranceData
        WHERE FarmersPremiumAmount =
-             (SELECT MAX(FarmersPremiumAmount) FROM ndap_data));
+             (SELECT MAX(FarmersPremiumAmount) FROM FarmersInsuranceData));
 
 
 
@@ -360,15 +360,15 @@ WHERE SumInsured >
 -- ###
 -- TYPE YOUR CODE BELOW >
 SELECT DISTINCT srcDistrictName
-FROM ndap_data
+FROM FarmersInsuranceData
 WHERE FarmersPremiumAmount >
       (
         SELECT AVG(FarmersPremiumAmount)
-        FROM ndap_data
+        FROM FarmersInsuranceData
         WHERE srcStateName =
               (
                 SELECT srcStateName
-                FROM ndap_data
+                FROM FarmersInsuranceData
                 ORDER BY TotalPopulation DESC
                 LIMIT 1
               )
@@ -428,7 +428,7 @@ REFERENCES states(StateCode);
 -- 	[2 Marks]
 -- ###
 -- TYPE YOUR CODE BELOW >
-UPDATE ndap_data
+UPDATE FarmersInsuranceData
 SET FarmersPremiumAmount = 500.0
 WHERE rowID = 1;
 
@@ -441,7 +441,7 @@ WHERE rowID = 1;
 -- 	[2 Marks]
 -- ###
 -- TYPE YOUR CODE BELOW >
-UPDATE ndap_data
+UPDATE FarmersInsuranceData
 SET Year = 2021
 WHERE srcStateName = 'HIMACHAL PRADESH';
 
@@ -453,7 +453,7 @@ WHERE srcStateName = 'HIMACHAL PRADESH';
 -- 	[2 Marks]
 -- ###
 -- TYPE YOUR CODE BELOW >
-DELETE FROM ndap_data
+DELETE FROM FarmersInsuranceData
 WHERE TotalFarmersCovered < 10000
   AND Year = 2020;
 
