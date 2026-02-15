@@ -1,0 +1,11 @@
+from ast import literal_eval
+
+# Taking Inputs 
+a = literal_eval(input())
+b = literal_eval(input())
+
+def filtered_zip(a, b):
+    return [(x, y) for x, y in zip(a, b) if x is not None and y is not None]
+
+# Print the output
+print(filtered_zip(a, b))
