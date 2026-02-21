@@ -1,76 +1,129 @@
-# 📊 Pandas – Beginner to Interview Notes
+# 📊 PANDAS – COMPLETE CRISP NOTES
+Beginner → Data Science → Interview Ready
 
-Pandas = Data Manipulation Library
+===========================================================
+1️⃣ WHAT IS PANDAS?
+===========================================================
 
---------------------------------------------
-INSTALL
---------------------------------------------
+Pandas = Python library for data manipulation & analysis.
+
+Used for:
+- Reading CSV/Excel files
+- Cleaning data
+- Filtering & transforming data
+- Grouping & aggregation
+- Preparing data for ML
+
+Think:
+NumPy = Math Engine
+Pandas = Data Handling Engine
+
+===========================================================
+2️⃣ INSTALL & IMPORT
+===========================================================
+
 pip install pandas
 
---------------------------------------------
-IMPORT
---------------------------------------------
 import pandas as pd
 
---------------------------------------------
-WHAT IS SERIES?
---------------------------------------------
-1D labeled array (like Excel column)
+===========================================================
+3️⃣ SERIES (1D DATA STRUCTURE)
+===========================================================
+
+Series = 1D labeled array
 
 s = pd.Series([10,20,30])
 
 With custom index:
 
-s = pd.Series([10,20,30], index=['a','b','c'])
-s['a']
+s = pd.Series([10,20,30], index=["a","b","c"])
 
---------------------------------------------
-WHAT IS DATAFRAME?
---------------------------------------------
-2D table (rows + columns)
+Access:
+
+s["a"]
+s[0]
+
+Important:
+Series = values + index
+
+Useful:
+
+s.head()
+s.tail()
+s.value_counts()
+s.unique()
+s.isnull()
+
+===========================================================
+4️⃣ DATAFRAME (2D STRUCTURE)
+===========================================================
+
+DataFrame = Table (rows + columns)
+
+Create manually:
 
 df = pd.DataFrame({
     "Name": ["A","B"],
     "Age": [20,25]
 })
 
---------------------------------------------
-LOAD DATA
---------------------------------------------
+From list:
+
+df = pd.DataFrame([[1,2],[3,4]], columns=["A","B"])
+
+===========================================================
+5️⃣ READING DATA
+===========================================================
 
 pd.read_csv("file.csv")
 pd.read_excel("file.xlsx")
 
---------------------------------------------
-QUICK INSPECTION
---------------------------------------------
+Always inspect after loading.
 
-df.head()
-df.tail()
-df.info()
-df.describe()
-df.shape
-df.columns
+===========================================================
+6️⃣ BASIC INSPECTION (VERY IMPORTANT)
+===========================================================
 
-Important:
-info() → data types + null
-describe() → numeric summary
+df.head()        → first 5 rows
+df.tail()        → last 5 rows
+df.sample(5)     → random rows
+df.shape         → (rows, columns)
+df.size          → total values
+df.columns       → column names
+df.index         → row labels
+df.info()        → datatypes + null count
+df.describe()    → summary stats (mean, min, max)
 
---------------------------------------------
-SELECTING DATA
---------------------------------------------
+Interview:
+info() = structure
+describe() = statistics
+
+===========================================================
+7️⃣ SELECTING DATA
+===========================================================
+
+Select column:
 
 df["Age"]
 df[["Name","Age"]]
+
+Row by label:
+
 df.loc[0]
+
+Row by position:
+
 df.iloc[0]
 
-loc → label
-iloc → index
+Key Difference:
+loc → label-based
+iloc → index-based
 
---------------------------------------------
-FILTERING
---------------------------------------------
+===========================================================
+8️⃣ FILTERING DATA
+===========================================================
+
+Single condition:
 
 df[df["Age"] > 20]
 
@@ -78,57 +131,147 @@ Multiple conditions:
 
 df[(df["Age"] > 20) & (df["Age"] < 30)]
 
---------------------------------------------
-ADD / DROP
---------------------------------------------
+Operators:
+& → AND
+| → OR
+~ → NOT
 
-df["New"] = 100
+===========================================================
+9️⃣ ADDING & MODIFYING
+===========================================================
+
+Add new column:
+
+df["Salary"] = 50000
+
+Modify column:
+
+df["Age"] = df["Age"] + 1
+
+===========================================================
+🔟 DROPPING DATA
+===========================================================
+
+Drop column:
+
 df.drop("Age", axis=1)
+
+Drop row:
+
 df.drop(0, axis=0)
 
 axis=1 → column
 axis=0 → row
 
---------------------------------------------
-MISSING DATA
---------------------------------------------
+===========================================================
+1️⃣1️⃣ MISSING VALUES
+===========================================================
+
+Check missing:
 
 df.isnull()
+
+Remove rows:
+
 df.dropna()
+
+Fill missing:
+
 df.fillna(0)
 
---------------------------------------------
-GROUPBY (VERY IMPORTANT)
---------------------------------------------
+Very common in real projects.
 
-df.groupby("Dept")["Salary"].mean()
-
-Interview favorite.
-
---------------------------------------------
-SORTING
---------------------------------------------
+===========================================================
+1️⃣2️⃣ SORTING
+===========================================================
 
 df.sort_values("Age")
 
---------------------------------------------
-MERGE
---------------------------------------------
+Descending:
+
+df.sort_values("Age", ascending=False)
+
+===========================================================
+1️⃣3️⃣ GROUPBY (VERY IMPORTANT)
+===========================================================
+
+Group data:
+
+df.groupby("Department")["Salary"].mean()
+
+Concept:
+Split → Apply → Combine
+
+Common aggregations:
+
+mean()
+sum()
+count()
+max()
+min()
+
+Interview favorite topic.
+
+===========================================================
+1️⃣4️⃣ MERGE / JOIN
+===========================================================
 
 pd.merge(df1, df2, on="id")
 
---------------------------------------------
-INTERVIEW QUESTIONS
---------------------------------------------
+Used to combine datasets.
 
-1. loc vs iloc?
-2. What is groupby?
-3. How to handle missing data?
-4. How to merge dataframes?
+===========================================================
+1️⃣5️⃣ CHAINING OPERATIONS
+===========================================================
 
---------------------------------------------
-REMEMBER
---------------------------------------------
+df[df["Age"]>25].sort_values("Salary")
 
-Pandas = Data Cleaning + Manipulation
-Most used in real projects
+Powerful feature of Pandas.
+
+===========================================================
+1️⃣6️⃣ QUICK REAL-WORLD FLOW
+===========================================================
+
+1. Read file
+2. Inspect (head, info, describe)
+3. Handle missing values
+4. Filter useful data
+5. Group or aggregate
+6. Prepare for ML
+
+===========================================================
+🔥 INTERVIEW SHORT NOTES
+===========================================================
+
+Q: loc vs iloc?
+A: loc → labels, iloc → positions
+
+Q: What does describe() show?
+A: Summary statistics
+
+Q: How to check null values?
+A: df.isnull()
+
+Q: What is groupby?
+A: Split → Apply → Combine
+
+Q: How to drop column?
+A: df.drop("col", axis=1)
+
+===========================================================
+🔥 DAILY MEMORY SHORTCUTS
+===========================================================
+
+NumPy → Math
+Pandas → Data handling
+
+loc = label
+iloc = index
+axis=0 → row
+axis=1 → column
+
+Groupby = aggregation
+describe = stats
+info = structure
+
+===========================================================
